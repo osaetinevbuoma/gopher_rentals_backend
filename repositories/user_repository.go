@@ -22,7 +22,7 @@ func FindUserByEmail(email string) (models.User, error) {
 	return user, nil
 }
 
-func SaveUser(user models.User) (int64, error) {
+func SaveUser(user *models.User) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
 		user.ID, user.Email, user.Password)
 	if err != nil {

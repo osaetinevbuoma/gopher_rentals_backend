@@ -57,7 +57,7 @@ func FindCustomerById(id uuid.UUID) (models.Customer, error) {
 	return customer, nil
 }
 
-func SaveCustomer(customer models.Customer) (int64, error) {
+func SaveCustomer(customer *models.Customer) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO customers " +
 		"(id ,first_name, last_name, nationality, identification_number, identification_type) VALUES " +
 		"(?, ?, ?, ?, ?, ?)", customer.ID, customer.FirstName, customer.LastName,
@@ -74,7 +74,7 @@ func SaveCustomer(customer models.Customer) (int64, error) {
 	return row, nil
 }
 
-func UpdateCustomer(customer models.Customer) (int64, error) {
+func UpdateCustomer(customer *models.Customer) (int64, error) {
 	result, err := db.DB.Exec("UPDATE customers SET first_name = ?, last_name = ?, " +
 		"nationality = ?, identification_number = ?, identification_type = ? WHERE id = ?",
 		customer.FirstName, customer.LastName, customer.Nationality, customer.IdentificationNumber,

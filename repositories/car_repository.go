@@ -55,7 +55,7 @@ func FindCarById(id uuid.UUID) (models.Car, error) {
 	return car, nil
 }
 
-func SaveCar(car models.Car) (int64, error) {
+func SaveCar(car *models.Car) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO cars " +
 		"(id, model, year, license_plate, current_km, max_km, fuel_type, hire_price, hire_availability) " +
 		"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", car.ID, car.Model, car.Year, car.LicensePlate,
@@ -72,7 +72,7 @@ func SaveCar(car models.Car) (int64, error) {
 	return row, nil
 }
 
-func UpdateCar(car models.Car) (int64, error) {
+func UpdateCar(car *models.Car) (int64, error) {
 	result, err := db.DB.Exec("UPDATE cars SET model = ?, year = ?,  license_plate = ?, " +
 		"current_km = ?, max_km = ?, fuel_type = ?, hire_price = ?, hire_availability = ? " +
 		"WHERE id = ?", car.Model, car.Year, car.LicensePlate, car.CurrentKm, car.MaxKm,

@@ -82,7 +82,7 @@ func FindLocationsByCarFiltered(carId uuid.UUID, limit int) ([]models.Location, 
 	return locations, nil
 }
 
-func SaveLocation(location models.Location) (int64, error) {
+func SaveLocation(location *models.Location) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO locations (id, car_id, latitude, longitude, " +
 		"current_location_datetime) VALUES (?, ?, ?, ?, ?)", location.ID, location.Car.ID,
 		location.Latitude, location.Longitude, location.CurrentLocationDatetime)
@@ -98,7 +98,7 @@ func SaveLocation(location models.Location) (int64, error) {
 	return row, nil
 }
 
-func UpdateLocation(location models.Location) (int64, error) {
+func UpdateLocation(location *models.Location) (int64, error) {
 	result, err := db.DB.Exec("UPDATE locations SET car_id = ?, latitude = ?,  longitude = ?, " +
 		"current_location_datetime = ? WHERE id = ?", location.Car.ID, location.Latitude,
 		location.Longitude, location.CurrentLocationDatetime, location.ID)

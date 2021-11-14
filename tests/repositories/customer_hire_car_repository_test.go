@@ -33,8 +33,8 @@ func TestSaveCustomerHireCar(t *testing.T) {
 		IdentificationType:   "International Passport",
 	}
 
-	_, _ = repositories.SaveCar(car)
-	_, _ = repositories.SaveCustomer(customer)
+	_, _ = repositories.SaveCar(&car)
+	_, _ = repositories.SaveCustomer(&customer)
 
 	assignCarToCustomer := models.CustomerHireCar{
 		ID:         uuid.New(),
@@ -44,7 +44,7 @@ func TestSaveCustomerHireCar(t *testing.T) {
 		ReturnDate: time.Now().Add(time.Duration(time.Sunday)),
 	}
 
-	row, err := repositories.SaveCustomerHireCar(assignCarToCustomer)
+	row, err := repositories.SaveCustomerHireCar(&assignCarToCustomer)
 	if err != nil {
 		t.Fatalf("TestSaveCustomerHireCar -> %v", err)
 	}
@@ -81,8 +81,8 @@ func TestUpdateCustomerHireCar(t *testing.T) {
 		IdentificationType:   "International Passport",
 	}
 
-	_, _ = repositories.SaveCar(car)
-	_, _ = repositories.SaveCustomer(customer)
+	_, _ = repositories.SaveCar(&car)
+	_, _ = repositories.SaveCustomer(&customer)
 
 	assignCarToCustomer := models.CustomerHireCar{
 		ID:         uuid.New(),
@@ -92,13 +92,13 @@ func TestUpdateCustomerHireCar(t *testing.T) {
 		ReturnDate: time.Now().Add(time.Duration(time.Sunday)),
 	}
 
-	_, _ = repositories.SaveCustomerHireCar(assignCarToCustomer)
+	_, _ = repositories.SaveCustomerHireCar(&assignCarToCustomer)
 
 	// update
 	assignCarToCustomer.HireDate = time.Now()
 	assignCarToCustomer.ReturnDate = time.Now().Add(time.Hour * 720)
 
-	row, err := repositories.UpdateCustomerHireCar(assignCarToCustomer)
+	row, err := repositories.UpdateCustomerHireCar(&assignCarToCustomer)
 	if err != nil {
 		t.Fatalf("TestUpdateCustomerHireCar -> %v", err)
 	}

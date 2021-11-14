@@ -26,7 +26,7 @@ func TestLocationManagement(t *testing.T) {
 		HireAvailability: true,
 	}
 
-	row, _ := repositories.SaveCar(car)
+	row, _ := repositories.SaveCar(&car)
 
 	if row != 1 {
 		t.Fatalf("TestLocationManagement: SaveCar -> row not inserted")
@@ -40,7 +40,7 @@ func TestLocationManagement(t *testing.T) {
 		CurrentLocationDatetime: time.Now(),
 	}
 
-	row, _ = repositories.SaveLocation(location)
+	row, _ = repositories.SaveLocation(&location)
 	if row != 1 {
 		t.Fatalf("TestLocationManagement: SaveLocation -> row not inserted")
 	}
@@ -64,7 +64,7 @@ func TestLocationManagement(t *testing.T) {
 	}
 
 	// testing finding filtered locations
-	row, _ = repositories.SaveLocation(location2)
+	row, _ = repositories.SaveLocation(&location2)
 	if row != 1 {
 		t.Fatalf("TestLocationManagement: SaveLocation -> row not inserted")
 	}
@@ -83,7 +83,7 @@ func TestLocationManagement(t *testing.T) {
 	location.Longitude = 10.903
 	location.Longitude = 8.424
 
-	row, err = repositories.UpdateLocation(location)
+	row, err = repositories.UpdateLocation(&location)
 	if err != nil {
 		t.Fatalf("TestLocationManagement: UpdateLocation -> %v", err)
 	}

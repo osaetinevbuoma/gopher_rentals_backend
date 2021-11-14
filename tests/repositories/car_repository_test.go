@@ -25,7 +25,7 @@ func TestSaveCar(t *testing.T) {
 		HireAvailability: true,
 	}
 
-	row, err := repositories.SaveCar(car)
+	row, err := repositories.SaveCar(&car)
 	if err != nil {
 		t.Fatalf("TestSaveCar not saved: %v", err)
 	}
@@ -77,7 +77,7 @@ func TestFindCarUpdateCarDeleteCar(t *testing.T) {
 	car.FuelType = "Diesel"
 	car.Year = 2011
 
-	row, err := repositories.UpdateCar(car)
+	row, err := repositories.UpdateCar(&car)
 	if err != nil {
 		t.Fatalf("TestFindCarUpdateCarDeleteCar error: %v", err)
 	}

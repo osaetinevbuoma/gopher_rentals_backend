@@ -22,7 +22,7 @@ func TestSaveCustomer(t *testing.T) {
 		IdentificationType:   "International Passport",
 	}
 
-	row, err := repositories.SaveCustomer(customer)
+	row, err := repositories.SaveCustomer(&customer)
 	if err != nil {
 		t.Fatalf("TestSaveCustomer not saved: %v", err)
 	}
@@ -74,7 +74,7 @@ func TestFindCustomerUpdateCustomerDeleteCustomer(t *testing.T) {
 	customer.FirstName = "John 2"
 	customer.LastName = "Doe 2"
 
-	row, err := repositories.UpdateCustomer(customer)
+	row, err := repositories.UpdateCustomer(&customer)
 	if err != nil {
 		t.Fatalf("TestFindCustomerUpdateCustomerDeleteCustomer error: %v", err)
 	}
