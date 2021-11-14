@@ -82,6 +82,19 @@ func FindLocationsByCarFiltered(carId uuid.UUID, limit int) ([]models.Location, 
 	return locations, nil
 }
 
+func FindLocationById(id uuid.UUID) (models.Location, error) {
+	var location models.Location
+
+	row := db.DB.QueryRow("SELECT * FROM locations WHERE id = ?", id)
+	err := row.Scan(&location.ID, &location.Car.ID, &location.Latitude, &location.Longitude,
+		&location.CurrentLocationDatetime)
+	if err != nil {
+		return models.Location{}, fmt.Errorf("FindLocationById: %v", err)
+	}
+
+	return location, nil
+}
+
 func SaveLocation(location *models.Location) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO locations (id, car_id, latitude, longitude, " +
 		"current_location_datetime) VALUES (?, ?, ?, ?, ?)", location.ID, location.Car.ID,

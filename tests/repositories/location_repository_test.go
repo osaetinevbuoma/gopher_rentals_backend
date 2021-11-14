@@ -55,6 +55,16 @@ func TestLocationManagement(t *testing.T) {
 		t.Fatalf("TestLocationManagement: FindAllLocationsByCar -> equals 0")
 	}
 
+	// testing finding location by id
+	loc, err := repositories.FindLocationById(location.ID)
+	if err != nil {
+		t.Fatalf("TestLocationManagement: FindLocationById -> %v", err)
+	}
+
+	if loc.ID != location.ID {
+		t.Fatalf("TestLocationManagement: location IDs do not mtach")
+	}
+
 	location2 := models.Location{
 		ID:                      uuid.New(),
 		Car:                     car,
