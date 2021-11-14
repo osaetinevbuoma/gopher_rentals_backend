@@ -14,14 +14,14 @@ func TestSaveCar(t *testing.T) {
 	}
 
 	car := models.Car{
-		ID: uuid.New(),
-		Model: "Toyota",
-		Year: 2009,
-		LicensePlate: "ABC123ER",
-		CurrentKm: 1000,
-		MaxKm: 50,
-		FuelType: "Petrol",
-		HirePrice: 5000,
+		ID:               uuid.New(),
+		Model:            "Toyota",
+		Year:             2009,
+		LicensePlate:     "ABC123ER",
+		CurrentKm:        1000,
+		MaxKm:            50,
+		FuelType:         "Petrol",
+		HirePrice:        5000,
 		HireAvailability: true,
 	}
 

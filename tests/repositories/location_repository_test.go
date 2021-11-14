@@ -15,14 +15,14 @@ func TestLocationManagement(t *testing.T) {
 	// We need a car to assign locations
 	// To be deleted at the end of test
 	car := models.Car{
-		ID: uuid.New(),
-		Model: "Toyota",
-		Year: 2009,
-		LicensePlate: "ABC123ER",
-		CurrentKm: 1000,
-		MaxKm: 50,
-		FuelType: "Petrol",
-		HirePrice: 5000,
+		ID:               uuid.New(),
+		Model:            "Toyota",
+		Year:             2009,
+		LicensePlate:     "ABC123ER",
+		CurrentKm:        1000,
+		MaxKm:            50,
+		FuelType:         "Petrol",
+		HirePrice:        5000,
 		HireAvailability: true,
 	}
 
@@ -33,10 +33,10 @@ func TestLocationManagement(t *testing.T) {
 	}
 
 	location := models.Location{
-		ID: uuid.New(),
-		Car: car,
-		Latitude: 12.123,
-		Longitude: 5.902,
+		ID:                      uuid.New(),
+		Car:                     car,
+		Latitude:                12.123,
+		Longitude:               5.902,
 		CurrentLocationDatetime: time.Now(),
 	}
 
@@ -56,10 +56,10 @@ func TestLocationManagement(t *testing.T) {
 	}
 
 	location2 := models.Location{
-		ID: uuid.New(),
-		Car: car,
-		Latitude: 14.920,
-		Longitude: 9.094,
+		ID:                      uuid.New(),
+		Car:                     car,
+		Latitude:                14.920,
+		Longitude:               9.094,
 		CurrentLocationDatetime: time.Now(),
 	}
 
@@ -103,6 +103,6 @@ func TestLocationManagement(t *testing.T) {
 	}
 
 	// clean DB
-	_,_ = repositories.DeleteLocation(location2.ID)
-	_,_ = repositories.DeleteCar(car.ID)
+	_, _ = repositories.DeleteLocation(location2.ID)
+	_, _ = repositories.DeleteCar(car.ID)
 }

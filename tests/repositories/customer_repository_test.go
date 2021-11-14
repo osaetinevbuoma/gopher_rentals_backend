@@ -14,12 +14,12 @@ func TestSaveCustomer(t *testing.T) {
 	}
 
 	customer := models.Customer{
-		ID: uuid.New(),
-		FirstName: "John",
-		LastName: "Doe",
-		Nationality: "Nigerian",
+		ID:                   uuid.New(),
+		FirstName:            "John",
+		LastName:             "Doe",
+		Nationality:          "Nigerian",
 		IdentificationNumber: "ABC123",
-		IdentificationType: "International Passport",
+		IdentificationType:   "International Passport",
 	}
 
 	row, err := repositories.SaveCustomer(customer)
