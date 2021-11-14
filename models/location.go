@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/google/uuid"
+	"time"
 )
 
 type Location struct {
@@ -10,5 +10,5 @@ type Location struct {
 	Car Car `json:"car"`
 	Latitude float64 `json:"latitude"`
 	Longitude float64 `json:"longitude"`
-	CurrentLocationDatetime date.Date `json:"current_location_datetime"`
+	CurrentLocationDatetime time.Time `json:"current_location_datetime"`
 }

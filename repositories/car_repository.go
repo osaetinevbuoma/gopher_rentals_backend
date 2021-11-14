@@ -46,7 +46,7 @@ func FindCarById(id uuid.UUID) (models.Car, error) {
 	if err := row.Scan(&car.ID, &car.Model, &car.Year, &car.LicensePlate, &car.CurrentKm,
 		&car.MaxKm, &car.FuelType, &car.HirePrice, &car.HireAvailability); err != nil {
 		if err == sql.ErrNoRows {
-			return car, fmt.Errorf("FindCarById: No user with id %s", id)
+			return car, fmt.Errorf("FindCarById: No car with id %s", id)
 		}
 
 		return car, fmt.Errorf("FindCarById: %v", err)
@@ -73,7 +73,7 @@ func SaveCar(car models.Car) (int64, error) {
 }
 
 func UpdateCar(car models.Car) (int64, error) {
-	result, err := db.DB.Exec("UPDATE cars SET model = ?, year = ?,  license_plate = ?" +
+	result, err := db.DB.Exec("UPDATE cars SET model = ?, year = ?,  license_plate = ?, " +
 		"current_km = ?, max_km = ?, fuel_type = ?, hire_price = ?, hire_availability = ? " +
 		"WHERE id = ?", car.Model, car.Year, car.LicensePlate, car.CurrentKm, car.MaxKm,
 		car.FuelType, car.HirePrice, car.HireAvailability, car.ID)
@@ -89,7 +89,7 @@ func UpdateCar(car models.Car) (int64, error) {
 	return row, nil
 }
 
-func DeleteCar(id string) (int64, error) {
+func DeleteCar(id uuid.UUID) (int64, error) {
 	result, err := db.DB.Exec("DELETE FROM cars WHERE id = ?", id)
 	if err != nil {
 		return 0, fmt.Errorf("DeleteCar: %v", err)

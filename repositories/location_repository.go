@@ -26,12 +26,12 @@ func FindAllLocationsByCar(carId uuid.UUID) ([]models.Location, error) {
 	for rows.Next() {
 		var location models.Location
 
-		car, err := FindCarById(location.Car.ID)
+		car, err := FindCarById(carId)
 		if err != nil {
 			return nil, fmt.Errorf("FindAllLocationsByCar: %v", err)
 		}
 
-		if err := rows.Scan(&location.ID, &car, &location.Latitude, &location.Longitude,
+		if err := rows.Scan(&location.ID, &car.ID, &location.Latitude, &location.Longitude,
 			&location.CurrentLocationDatetime); err != nil {
 			return nil, fmt.Errorf("FindAllLocationsByCar: %v", err)
 		}
@@ -63,12 +63,12 @@ func FindLocationsByCarFiltered(carId uuid.UUID, limit int) ([]models.Location, 
 	for rows.Next() {
 		var location models.Location
 
-		car, err := FindCarById(location.Car.ID)
+		car, err := FindCarById(carId)
 		if err != nil {
 			return nil, fmt.Errorf("FindLocationsByCarFiltered: %v", err)
 		}
 
-		if err := rows.Scan(&location.ID, &car, &location.Latitude, &location.Longitude,
+		if err := rows.Scan(&location.ID, &car.ID, &location.Latitude, &location.Longitude,
 			&location.CurrentLocationDatetime); err != nil {
 			return nil, fmt.Errorf("FindLocationsByCarFiltered: %v", err)
 		}
@@ -99,7 +99,7 @@ func SaveLocation(location models.Location) (int64, error) {
 }
 
 func UpdateLocation(location models.Location) (int64, error) {
-	result, err := db.DB.Exec("UPDATE locations SET car_id = ?, latitude = ?,  longitude = ?" +
+	result, err := db.DB.Exec("UPDATE locations SET car_id = ?, latitude = ?,  longitude = ?, " +
 		"current_location_datetime = ? WHERE id = ?", location.Car.ID, location.Latitude,
 		location.Longitude, location.CurrentLocationDatetime, location.ID)
 	if err != nil {
@@ -114,7 +114,7 @@ func UpdateLocation(location models.Location) (int64, error) {
 	return row, nil
 }
 
-func DeleteLocation(id string) (int64, error) {
+func DeleteLocation(id uuid.UUID) (int64, error) {
 	result, err := db.DB.Exec("DELETE FROM locations WHERE id = ?", id)
 	if err != nil {
 		return 0, fmt.Errorf("DeleteLocation: %v", err)

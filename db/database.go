@@ -17,6 +17,7 @@ func ConfigureDB() error {
 		Addr: "127.0.0.1:3306",
 		DBName: "gopher_rentals",
 		AllowNativePasswords: true,
+		ParseTime: true,
 	}
 
 	var err error

@@ -21,3 +21,18 @@ func FindUserByEmail(email string) (models.User, error) {
 
 	return user, nil
 }
+
+func SaveUser(user models.User) (int64, error) {
+	result, err := db.DB.Exec("INSERT INTO users (id, email, password) VALUES (?, ?, ?)",
+		user.ID, user.Email, user.Password)
+	if err != nil {
+		return 0, fmt.Errorf("SaveUser: Error occurred saving user -> %v", err)
+	}
+
+	row, err := result.RowsAffected()
+	if err != nil {
+		return 0, fmt.Errorf("SaveUser: No rows affected -> %v", err)
+	}
+
+	return row, nil
+}

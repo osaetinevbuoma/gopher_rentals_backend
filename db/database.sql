@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS locations
 (
     id                        VARCHAR(128) NOT NULL,
     car_id                    VARCHAR(128),
-    latitude                  DECIMAL(10, 2),
-    longitude                 DECIMAL(10, 2),
+    latitude                  DECIMAL(10, 4),
+    longitude                 DECIMAL(10, 4),
     current_location_datetime DATETIME,
     PRIMARY KEY (id),
     CONSTRAINT fk_car_id_locations FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE 

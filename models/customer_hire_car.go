@@ -1,14 +1,14 @@
 package models
 
 import (
-	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/google/uuid"
+	"time"
 )
 
 type CustomerHireCar struct {
 	ID         uuid.UUID `json:"id"`
 	Customer   Customer  `json:"customer"`
 	Car        Car       `json:"car"`
-	HireDate   date.Date `json:"hire_date"`
-	ReturnDate date.Date `json:"return_date"`
+	HireDate   time.Time `json:"hire_date"`
+	ReturnDate time.Time `json:"return_date"`
 }
