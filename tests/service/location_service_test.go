@@ -16,7 +16,7 @@ func TestCarLocationManagement(t *testing.T) {
 		"year": 2011,
 		"license_plate": "ABC123ER",
 		"current_km": 560.90,
-		"max_km": 34.56,
+		"max_kg": 34.56,
 		"fuel_type": "Petrol",
 		"hire_price": 908.67,
 	}

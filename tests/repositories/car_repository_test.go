@@ -19,7 +19,7 @@ func TestSaveCar(t *testing.T) {
 		Year:             2009,
 		LicensePlate:     "ABC123ER",
 		CurrentKm:        1000,
-		MaxKm:            50,
+		MaxKg:            50,
 		FuelType:         "Petrol",
 		HirePrice:        5000,
 		HireAvailability: true,

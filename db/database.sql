@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS cars
     year              INTEGER,
     license_plate     VARCHAR(45),
     current_km        DECIMAL(10, 2),
-    max_km            DECIMAL(10, 2),
+    max_kg            DECIMAL(10, 2),
     fuel_type         VARCHAR(45),
     hire_price        DECIMAL(10, 2),
     hire_availability TINYINT,

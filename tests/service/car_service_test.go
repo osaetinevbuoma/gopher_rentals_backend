@@ -15,7 +15,7 @@ func TestCreateCar(t *testing.T) {
 		"year": 2011,
 		"license_plate": "ABC123ER",
 		"current_km": 560.90,
-		"max_km": 34.56,
+		"max_kg": 34.56,
 		"fuel_type": "Petrol",
 		"hire_price": 908.67,
 	}
@@ -25,7 +25,7 @@ func TestCreateCar(t *testing.T) {
 		"year": 2021,
 		"license_plate": "QWE123TY",
 		"current_km": 860.90,
-		"max_km": 340.56,
+		"max_kg": 340.56,
 		"fuel_type": "Diesel",
 		"hire_price": 1908.67,
 	}
@@ -87,7 +87,7 @@ func TestUpdateCar(t *testing.T) {
 		"year": 2009,
 		"license_plate": "AXC123TY",
 		"current_km": 1860.90,
-		"max_km": 2340.56,
+		"max_kg": 2340.56,
 		"fuel_type": "Gas",
 		"hire_price": 108.67,
 		"hire_availability": false,

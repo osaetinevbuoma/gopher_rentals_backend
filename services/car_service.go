@@ -49,7 +49,7 @@ func CreateCar(data map[string]interface{}) (models.Car, error) {
 		Year: data["year"].(int),
 		LicensePlate: data["license_plate"].(string),
 		CurrentKm: data["current_km"].(float64),
-		MaxKm: data["max_km"].(float64),
+		MaxKg: data["max_kg"].(float64),
 		FuelType: data["fuel_type"].(string),
 		HirePrice: data["hire_price"].(float64),
 		HireAvailability: true,
@@ -73,7 +73,7 @@ func UpdateCar(data map[string]interface{}) (models.Car, error) {
 	car.Year = data["year"].(int)
 	car.LicensePlate = data["license_plate"].(string)
 	car.CurrentKm = data["current_km"].(float64)
-	car.MaxKm = data["max_km"].(float64)
+	car.MaxKg = data["max_kg"].(float64)
 	car.FuelType = data["fuel_type"].(string)
 	car.HirePrice = data["hire_price"].(float64)
 	car.HireAvailability = data["hire_availability"].(bool)
