@@ -26,7 +26,7 @@ func FindAllCars() ([]models.Car, error) {
 	for rows.Next() {
 		var car models.Car
 		if err := rows.Scan(&car.ID, &car.Model, &car.Year, &car.LicensePlate, &car.CurrentKm,
-			&car.MaxKg, &car.FuelType, &car.HirePrice, &car.HireAvailability); err != nil {
+			&car.MaxKm, &car.FuelType, &car.HirePrice, &car.HireAvailability); err != nil {
 			return nil, fmt.Errorf("FindAllCars: %v", err)
 		}
 		cars = append(cars, car)
@@ -44,7 +44,7 @@ func FindCarById(id uuid.UUID) (models.Car, error) {
 
 	row := db.DB.QueryRow("SELECT * FROM cars WHERE id = ?", id)
 	if err := row.Scan(&car.ID, &car.Model, &car.Year, &car.LicensePlate, &car.CurrentKm,
-		&car.MaxKg, &car.FuelType, &car.HirePrice, &car.HireAvailability); err != nil {
+		&car.MaxKm, &car.FuelType, &car.HirePrice, &car.HireAvailability); err != nil {
 		if err == sql.ErrNoRows {
 			return car, fmt.Errorf("FindCarById: No car with id %s", id)
 		}
@@ -59,7 +59,7 @@ func SaveCar(car *models.Car) (int64, error) {
 	result, err := db.DB.Exec("INSERT INTO cars " +
 		"(id, model, year, license_plate, current_km, max_kg, fuel_type, hire_price, hire_availability) " +
 		"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", car.ID, car.Model, car.Year, car.LicensePlate,
-		car.CurrentKm, car.MaxKg, car.FuelType, car.HirePrice, car.HireAvailability)
+		car.CurrentKm, car.MaxKm, car.FuelType, car.HirePrice, car.HireAvailability)
 	if err != nil {
 		return 0, fmt.Errorf("SaveCar: %v", err)
 	}
@@ -75,7 +75,7 @@ func SaveCar(car *models.Car) (int64, error) {
 func UpdateCar(car *models.Car) (int64, error) {
 	result, err := db.DB.Exec("UPDATE cars SET model = ?, year = ?,  license_plate = ?, " +
 		"current_km = ?, max_kg = ?, fuel_type = ?, hire_price = ?, hire_availability = ? " +
-		"WHERE id = ?", car.Model, car.Year, car.LicensePlate, car.CurrentKm, car.MaxKg,
+		"WHERE id = ?", car.Model, car.Year, car.LicensePlate, car.CurrentKm, car.MaxKm,
 		car.FuelType, car.HirePrice, car.HireAvailability, car.ID)
 	if err != nil {
 		return 0, fmt.Errorf("UpdateCar: %v", err)

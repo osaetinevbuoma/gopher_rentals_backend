@@ -8,7 +8,7 @@ type Car struct {
 	Year             int        `json:"year"`
 	LicensePlate     string     `json:"license_plate"`
 	CurrentKm        float64    `json:"current_km"`
-	MaxKg            float64    `json:"max_kg"`
+	MaxKm            float64    `json:"max_km"`
 	FuelType         string     `json:"fuel_type"`
 	HirePrice        float64    `json:"hire_price"`
 	HireAvailability bool       `json:"hire_availability"`
