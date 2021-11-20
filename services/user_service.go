@@ -8,15 +8,15 @@ import (
 	"gopher_rentals/repositories"
 )
 
-func CreateUser() (models.User, error) {
-	password, err := HashPassword("password")
+func CreateUser(email string, password string) (models.User, error) {
+	password, err := HashPassword(password)
 	if err != nil {
 		return models.User{}, err
 	}
 
 	user := models.User{
 		ID: uuid.New(),
-		Email: "admin@email.com",
+		Email: email,
 		Password: password,
 	}
 	
@@ -35,6 +35,15 @@ func HashPassword(password string) (string, error) {
 	}
 
 	return string(bytes), nil
+}
+
+func GetUser(email string) (models.User, error) {
+	user, err := repositories.FindUserByEmail(email)
+	if err != nil {
+		return models.User{}, fmt.Errorf("no user with email %s", email)
+	}
+
+	return user, nil
 }
 
 func CheckPassword(password string, providedPassword string) bool {

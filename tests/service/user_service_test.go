@@ -9,7 +9,7 @@ import (
 func TestCreateUser(t *testing.T) {
 	_ = db.ConfigureDB()
 
-	user, err := services.CreateUser()
+	user, err := services.CreateUser("john.doe@testing.net", "password")
 	if err != nil {
 		t.Fatalf("TestCreateUser: %v", err)
 	}
