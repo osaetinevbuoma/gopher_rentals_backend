@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+var SecretKey string = "adfasnasfasfg!#$!@#$!@FBTRURYREV#%^&$%_Y+RFSDV:<WRterteRGMKYOH#%$$#%$&#4543"
+
 type RegisterUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
@@ -77,8 +79,7 @@ func LoginController(context *gin.Context) {
 		return
 	}
 
-	secretKey := "adfasnasfasfg!#$!@#$!@FBTRURYREV#%^&$%_Y+RFSDV:<WRterteRGMKYOH#%$$#%$&#4543"
-	maker, err := auth.NewJWTMaker(secretKey)
+	maker, err := auth.NewJWTMaker(SecretKey)
 	if err != nil {
 		log.Println(err)
 		return
