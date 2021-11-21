@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/google/uuid"
 	"gopher_rentals/db"
 	"gopher_rentals/services"
 	"testing"
@@ -76,21 +75,18 @@ func TestEditCustomer(t *testing.T) {
 	}
 
 	customer := customers[0]
-	updatedCustomer := map[string]interface{}{
-		"id": customer.ID,
-		"first_name": "Jonathan",
-		"last_name": "Doe",
-		"nationality": "Nigerian",
-		"identification_number": "ABC123",
-		"identification_type": "International Passport",
-	}
+	customer.FirstName = "Jonathan"
+	customer.LastName = "Doe"
+	customer.Nationality = "Nigerian"
+	customer.IdentificationNumber = "ABC123"
+	customer.IdentificationType = "International Passport"
 
-	c, err := services.EditCustomer(updatedCustomer)
+	c, err := services.EditCustomer(&customer)
 	if err != nil {
 		t.Fatalf("TestEditCustomer: error occurred editing customer -> %v", err)
 	}
 
-	if c.ID != updatedCustomer["id"].(uuid.UUID) && c.FirstName != updatedCustomer["first_name"].(string) {
+	if c.ID != customer.ID && c.FirstName != customer.FirstName {
 		t.Fatalf("TestEditCustomer: update customer does not match saved customer")
 	}
 }

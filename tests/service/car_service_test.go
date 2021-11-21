@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/google/uuid"
 	"gopher_rentals/db"
+	"gopher_rentals/models"
 	"gopher_rentals/services"
 	"testing"
 )
@@ -10,32 +10,32 @@ import (
 func TestCreateCar(t *testing.T) {
 	_ = db.ConfigureDB()
 
-	car1 := map[string]interface{} {
-		"model": "Toyota",
-		"year": 2011,
-		"license_plate": "ABC123ER",
-		"current_km": 560.90,
-		"max_kg": 34.56,
-		"fuel_type": "Petrol",
-		"hire_price": 908.67,
+	car1 := models.Car{
+		Model: "Toyota",
+		Year: 2011,
+		LicensePlate: "ABC123ER",
+		CurrentKm: 560.90,
+		MaxKg: 34.56,
+		FuelType: "Petrol",
+		HirePrice: 908.67,
 	}
 
-	car2 := map[string]interface{} {
-		"model": "Honda",
-		"year": 2021,
-		"license_plate": "QWE123TY",
-		"current_km": 860.90,
-		"max_kg": 340.56,
-		"fuel_type": "Diesel",
-		"hire_price": 1908.67,
+	car2 := models.Car {
+		Model: "Honda",
+		Year: 2021,
+		LicensePlate: "QWE123TY",
+		CurrentKm: 860.90,
+		MaxKg: 340.56,
+		FuelType: "Diesel",
+		HirePrice: 1908.67,
 	}
 
-	_, err := services.CreateCar(car1)
+	_, err := services.CreateCar(&car1)
 	if err != nil {
 		t.Fatalf("TestCreateCar: error occurred creating car -> %v", err)
 	}
 
-	_, err = services.CreateCar(car2)
+	_, err = services.CreateCar(&car2)
 }
 
 func TestListCars(t *testing.T) {
@@ -80,27 +80,22 @@ func TestUpdateCar(t *testing.T) {
 	}
 
 	car := cars[0]
+	car.Model = "Mazda"
+	car.Year = 2009
+	car.LicensePlate = "AXC123TY"
+	car.CurrentKm =  1860.90
+	car.MaxKg = 2340.56
+	car.FuelType = "Gas"
+	car.HirePrice = 108.67
+	car.HireAvailability = false
 
-	updatedCar := map[string]interface{} {
-		"id": car.ID,
-		"model": "Mazda",
-		"year": 2009,
-		"license_plate": "AXC123TY",
-		"current_km": 1860.90,
-		"max_kg": 2340.56,
-		"fuel_type": "Gas",
-		"hire_price": 108.67,
-		"hire_availability": false,
-	}
-
-	c, err := services.UpdateCar(updatedCar)
+	c, err := services.UpdateCar(&car)
 	if err != nil {
 		t.Fatalf("TestUpdateCar: error occurred updating car -> %v", err)
 	}
 
-	if c.ID != updatedCar["id"].(uuid.UUID) {
-		t.Fatalf("TestUpdateCar: updated car ID %s does not match car Id %s",
-			updatedCar["id"].(uuid.UUID), c.ID)
+	if c.ID != car.ID {
+		t.Fatalf("TestUpdateCar: updated car ID %s does not match car Id %s", car.ID, c.ID)
 	}
 }
 

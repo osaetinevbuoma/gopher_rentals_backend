@@ -42,45 +42,25 @@ func GetCar(id uuid.UUID) (models.Car, error) {
 	return car, nil
 }
 
-func CreateCar(data map[string]interface{}) (models.Car, error) {
-	car := models.Car{
-		ID: uuid.New(),
-		Model: data["model"].(string),
-		Year: data["year"].(int),
-		LicensePlate: data["license_plate"].(string),
-		CurrentKm: data["current_km"].(float64),
-		MaxKm: data["max_kg"].(float64),
-		FuelType: data["fuel_type"].(string),
-		HirePrice: data["hire_price"].(float64),
-		HireAvailability: true,
-	}
-
-	_, err := repositories.SaveCar(&car)
+func CreateCar(car *models.Car) (*models.Car, error) {
+	car.ID = uuid.New()
+	_, err := repositories.SaveCar(car)
 	if err != nil {
-		return models.Car{}, fmt.Errorf("car was not created")
+		return nil, fmt.Errorf("car was not created")
 	}
 
 	return car, nil
 }
 
-func UpdateCar(data map[string]interface{}) (models.Car, error) {
-	car, err := repositories.FindCarById(data["id"].(uuid.UUID))
+func UpdateCar(car *models.Car) (*models.Car, error) {
+	_, err := repositories.FindCarById(car.ID)
 	if err != nil {
-		return models.Car{}, fmt.Errorf("no car matching ID %s", data["id"])
+		return nil, fmt.Errorf("no car matching ID %s", car.ID)
 	}
 
-	car.Model = data["model"].(string)
-	car.Year = data["year"].(int)
-	car.LicensePlate = data["license_plate"].(string)
-	car.CurrentKm = data["current_km"].(float64)
-	car.MaxKm = data["max_kg"].(float64)
-	car.FuelType = data["fuel_type"].(string)
-	car.HirePrice = data["hire_price"].(float64)
-	car.HireAvailability = data["hire_availability"].(bool)
-
-	_, err = repositories.UpdateCar(&car)
+	_, err = repositories.UpdateCar(car)
 	if err != nil {
-		return models.Car{}, fmt.Errorf("error occurred updating car with ID %s", car.ID)
+		return nil, fmt.Errorf("error occurred updating car with ID %s", car.ID)
 	}
 
 	return car, nil

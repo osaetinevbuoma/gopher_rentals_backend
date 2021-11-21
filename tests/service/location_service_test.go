@@ -2,26 +2,26 @@ package service
 
 import (
 	"gopher_rentals/db"
+	"gopher_rentals/models"
 	"gopher_rentals/services"
 	"testing"
-	"time"
 )
 
 func TestCarLocationManagement(t *testing.T) {
 	_ = db.ConfigureDB()
 
 	// save car location
-	car := map[string]interface{} {
-		"model": "Toyota",
-		"year": 2011,
-		"license_plate": "ABC123ER",
-		"current_km": 560.90,
-		"max_kg": 34.56,
-		"fuel_type": "Petrol",
-		"hire_price": 908.67,
+	car := models.Car{
+		Model: "Toyota",
+		Year: 2011,
+		LicensePlate: "ABC123ER",
+		CurrentKm: 560.90,
+		MaxKg: 34.56,
+		FuelType: "Petrol",
+		HirePrice: 908.67,
 	}
 
-	c, err := services.CreateCar(car)
+	c, err := services.CreateCar(&car)
 	if err != nil {
 		t.Fatalf("TestCarLocationManagement (SaveCarLocation): failed to save car -> %v",
 			err)
@@ -30,13 +30,13 @@ func TestCarLocationManagement(t *testing.T) {
 	location1 := map[string]interface{} {
 		"latitude": 78.930,
 		"longitude": 289.214,
-		"current_location_datetime": time.Now(),
+		"current_location_datetime": "2021-11-21 09:40:01",
 	}
 
 	location2 := map[string]interface{} {
 		"latitude": 178.930,
 		"longitude": 89.214,
-		"current_location_datetime": time.Now(),
+		"current_location_datetime": "2021-11-21 09:40:01",
 	}
 
 	_, err = services.SaveCarLocation(c.ID, location1)
@@ -61,10 +61,10 @@ func TestCarLocationManagement(t *testing.T) {
 
 	// update car location
 	updatedLocation := map[string]interface{} {
-		"id": locations[0].ID,
+		"id": locations[0].ID.String(),
 		"latitude": 178.930,
 		"longitude": 89.214,
-		"current_location_datetime": time.Now(),
+		"current_location_datetime": "2021-11-21 09:40:01",
 	}
 
 	_, err = services.UpdateCarLocation(c.ID, updatedLocation)

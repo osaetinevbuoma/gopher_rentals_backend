@@ -43,21 +43,15 @@ func CreateCustomer(data map[string]interface{}) (models.Customer, error) {
 	return customer, nil
 }
 
-func EditCustomer(data map[string]interface{}) (models.Customer, error) {
-	customer, err := repositories.FindCustomerById(data["id"].(uuid.UUID))
+func EditCustomer(customer *models.Customer) (*models.Customer, error) {
+	_, err := repositories.FindCustomerById(customer.ID)
 	if err != nil {
-		return models.Customer{}, fmt.Errorf("error fetching customer with ID %s", data["id"])
+		return nil, fmt.Errorf("error fetching customer with ID %s", customer.ID)
 	}
 
-	customer.Nationality = data["nationality"].(string)
-	customer.FirstName = data["first_name"].(string)
-	customer.LastName = data["last_name"].(string)
-	customer.IdentificationNumber = data["identification_number"].(string)
-	customer.IdentificationType = data["identification_type"].(string)
-
-	_, err = repositories.UpdateCustomer(&customer)
+	_, err = repositories.UpdateCustomer(customer)
 	if err != nil {
-		return models.Customer{}, fmt.Errorf("error occurred updating customer")
+		return nil, fmt.Errorf("error occurred updating customer")
 	}
 
 	return customer, nil
