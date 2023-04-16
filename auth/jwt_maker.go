@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/google/uuid"
 	"time"
 )
 
@@ -22,8 +23,8 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 	return &JWTMaker{secretKey}, nil
 }
 
-func (maker *JWTMaker) CreateToken(email string, duration time.Duration) (string, error) {
-	payload, err := NewPayload(email, duration)
+func (maker *JWTMaker) CreateToken(userId uuid.UUID, email string, duration time.Duration) (string, error) {
+	payload, err := NewPayload(userId, email, duration)
 	if err != nil {
 		return "", err
 	}

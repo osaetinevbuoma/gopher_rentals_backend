@@ -3,14 +3,14 @@ package util
 import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
 func UnmarshalJson(context *gin.Context) map[string]interface{} {
 	var jsonData map[string]interface{}
 
-	data, err := ioutil.ReadAll(context.Request.Body)
+	data, err := io.ReadAll(context.Request.Body)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, err)
 		return nil

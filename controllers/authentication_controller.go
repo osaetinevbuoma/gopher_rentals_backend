@@ -11,13 +11,13 @@ import (
 var SecretKey string = "adfasnasfasfg!#$!@#$!@FBTRURYREV#%^&$%_Y+RFSDV:<WRterteRGMKYOH#%$$#%$&#4543"
 
 type RegisterUser struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email           string `json:"email"`
+	Password        string `json:"password"`
 	ConfirmPassword string `json:"confirm_password"`
 }
 
 type LoginData struct {
-	Email string `json:"email"`
+	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
@@ -85,7 +85,7 @@ func LoginController(context *gin.Context) {
 		return
 	}
 
-	token, err := maker.CreateToken(login.Email, 60 * 60 * 24)
+	token, err := maker.CreateToken(user.ID, login.Email, 24*7)
 	if err != nil {
 		log.Println(err)
 		return

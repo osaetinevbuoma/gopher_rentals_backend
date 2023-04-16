@@ -57,5 +57,5 @@ CREATE TABLE IF NOT EXISTS locations
     longitude                 DECIMAL(10, 4),
     current_location_datetime DATETIME,
     PRIMARY KEY (id),
-    CONSTRAINT fk_car_id_locations FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE 
+    CONSTRAINT fk_car_id_locations FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE
 );

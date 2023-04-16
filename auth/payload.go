@@ -16,17 +16,13 @@ type Payload struct {
 var ErrExpiredToken = errors.New("token has expired")
 var ErrInvalidToken = errors.New("token is invalid")
 
-func NewPayload(email string, duration time.Duration) (*Payload, error) {
-	tokenID, err := uuid.NewRandom()
-	if err != nil {
-		return nil, err
-	}
-
+func NewPayload(userId uuid.UUID, email string, duration time.Duration) (*Payload, error) {
+	currentTime := time.Now()
 	payload := &Payload{
-		ID:        tokenID,
+		ID:        userId,
 		Email:     email,
-		IssuedAt:  time.Now(),
-		ExpiredAt: time.Now().Add(duration),
+		IssuedAt:  currentTime,
+		ExpiredAt: currentTime.Add(time.Hour * duration),
 	}
 
 	return payload, nil

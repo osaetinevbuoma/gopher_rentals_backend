@@ -10,19 +10,15 @@ This implementation of the Gopher Rentals project does not leverage any ORM for 
 interactions. It uses age-old MySQL queries stored in repositories that are used by service
 functions.
 
-In terminal, enter the following command:
+Make a copy of `.env.template` file and rename the copy to `.env`. Enter the DB settings in the 
+`.env` file.
+
+In terminal, run the following command:
 
 ```
-$ mysql -u <MYSQL_USER> -p
+$ docker-compose up
 ```
-
-Enter your MySQL user's password. While in the MySQL prompt, enter the following commands:
-
-```
-$ mysql > source /path/to/sql/file/in/db/folder/database.sql
-```
-
-This creates the database (`gopher_rentals`) and the corresponding tables.
+This creates the database (`gopher_rentals`) and the corresponding tables and starts the server.
 
 ## REST API Endpoints
 

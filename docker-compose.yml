@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  gopher_rentals_backend:
+    container_name: gopher_rentals_backed
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./:/app
+    networks:
+      - gopher_rentals
+    env_file:
+      - .env
+    depends_on:
+      gopher_rentals_db:
+        condition: service_started
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  gopher_rentals_db:
+    image: mariadb:latest
+    container_name: gopher_rentals_db
+    hostname: gopher_rentals_db
+    networks:
+      - gopher_rentals
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    volumes:
+      - gopher_rentals_data:/var/lib/mysql
+      - gopher_rentals_config:/etc/mysql/conf.d
+
+volumes:
+  gopher_rentals_data:
+  gopher_rentals_config:
+
+networks:
+  gopher_rentals:
+    driver: bridge

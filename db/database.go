@@ -2,22 +2,24 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/go-sql-driver/mysql"
 	"log"
+	"os"
+	"strings"
 )
 
 var DB *sql.DB
 
 func ConfigureDB() error {
 	config := mysql.Config{
-		User: "admin",
-		Passwd: "",
-		Net: "tcp",
-		Addr: "127.0.0.1:3306",
-		DBName: "gopher_rentals",
+		User:   os.Getenv("MARIADB_USER"),
+		Passwd: os.Getenv("MARIADB_PASSWORD"),
+		Net:    "tcp",
+		Addr:   os.Getenv("MARIADB_HOSTNAME") + ":" + os.Getenv("MARIADB_PORT"),
+		//DBName:               os.Getenv("MARIADB_DATABASE"),
 		AllowNativePasswords: true,
-		ParseTime: true,
+		ParseTime:            true,
+		MultiStatements:      true,
 	}
 
 	var err error
@@ -33,6 +35,17 @@ func ConfigureDB() error {
 		return err
 	}
 
-	fmt.Println("Database connection successful")
+	dbQueries, err := os.ReadFile("db/database.sql")
+	if err != nil {
+		log.Fatal("DB sql file not provided")
+		return err
+	}
+
+	if _, err := DB.Exec(strings.TrimSpace(string(dbQueries))); err != nil {
+		log.Fatal("Failed to execute DB queries", err)
+		return err
+	}
+
+	log.Println("Database connection successful")
 	return nil
 }
